@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home:
-      MultiStepForm()
+      const PersonalDetails()
       //  const PersonalDetails(),
     );
   }
