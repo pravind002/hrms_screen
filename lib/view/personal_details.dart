@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hrms_screen/constants/colors.dart';
+import 'package:hrms_screen/utils/custom_text_field.dart';
+
+import '../utils/custom_drop_down.dart';
 
 class PersonalDetails extends StatelessWidget {
   const PersonalDetails({super.key});
@@ -19,15 +22,43 @@ class PersonalDetails extends StatelessWidget {
       body: Container(
         margin: const EdgeInsets.all(15),
         decoration: BoxDecoration(border: Border.all(color: blackColor)),
-        child: Card(surfaceTintColor: whiteColor,
-          elevation: 15,color: whiteColor,
+        child: Card(
+          surfaceTintColor: whiteColor,
+          elevation: 15,
+          color: whiteColor,
           margin: const EdgeInsets.all(0),
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: 1000,
                   // color: Colors.green,
+                  child: Column(
+                    children: [
+                      const CustomTextField(
+                          lable: 'Full Name (As per Aadhar card)'),
+                      const Row(
+                        children: [
+                          Expanded(child: CustomTextField(lable: 'First Name')),
+                          Expanded(
+                              child: CustomTextField(lable: 'Middle Name')),
+                          Expanded(child: CustomTextField(lable: 'Last Name')),
+                        ],
+                      ),
+                      CustomDropDown(
+                        label: 'Select an option',
+                        selectedValue: 'Option 1',
+                        dropdownItems: const [
+                          'Option 1',
+                          'Option 2',
+                          'Option 3'
+                        ],
+                        onChanged: (value) {
+                          print('Selected value: $value');
+                        },
+                      )
+                    ],
+                  ),
                 )
               ],
             ),
@@ -38,143 +69,3 @@ class PersonalDetails extends StatelessWidget {
   }
 }
 
-
-// import 'package:flutter/material.dart';
-
-// class MultiStepForm extends StatefulWidget {
-//   const MultiStepForm({Key? key}) : super(key: key);
-
-//   @override
-//   _MultiStepFormState createState() => _MultiStepFormState();
-// }
-
-// class _MultiStepFormState extends State<MultiStepForm> {
-//   int currentStep = 0;
-//   List<Step> steps = [
-//     const Step(
-//       title: Text('Employee'),
-//       content: EmployeeForm(),
-//     ),
-//     const Step(
-//       title: Text('Contact'),
-//       content: ContactDetails(),
-//     ),
-//     const Step(
-//       title: Text('Bank'),
-//       content: BankDetails(),
-//     ),
-//   ];
-
-//   void next() {
-//     if (currentStep < steps.length - 1) {
-//       setState(() {
-//         currentStep++;
-//       });
-//     }
-//   }
-
-//   void previous() {
-//     if (currentStep > 0) {
-//       setState(() {
-//         currentStep--;
-//       });
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Multi-Step Form'),
-//       ),
-//       body: Column(
-//         children: [
-//           Flexible(
-//             child: Container(
-//               padding: const EdgeInsets.all(16),
-//               child: Stepper(
-//                 currentStep: currentStep,
-//                 steps: steps,
-//                 type: StepperType.horizontal,
-//                 onStepTapped: (step) {
-//                   setState(() {
-//                     currentStep = step;
-//                   });
-//                 },
-//                 onStepContinue: next,
-//                 onStepCancel: previous,
-//                 controlsBuilder:
-//                     (BuildContext context, ControlsDetails details) {
-//                   return ButtonBar(
-//                     alignment: MainAxisAlignment.spaceEvenly,
-//                     children: [
-//                       ElevatedButton(
-//                         onPressed: details.onStepCancel,
-//                         child: const Text('Previous'),
-//                       ),
-//                       ElevatedButton(
-//                         onPressed: details.onStepContinue,
-//                         child: Text(currentStep == steps.length - 1
-//                             ? 'Submit'
-//                             : 'Next'),
-//                       ),
-//                     ],
-//                   );
-//                 },
-//               ),
-//             ),
-//           ),
-//           Container(
-//             padding: const EdgeInsets.all(16),
-//             child: steps[currentStep].content,
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
-
-// class EmployeeForm extends StatelessWidget {
-//   const EmployeeForm({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text('Employee Form'),
-//         // Add employee form fields here
-//       ],
-//     );
-//   }
-// }
-
-// class ContactDetails extends StatelessWidget {
-//   const ContactDetails({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text('Contact Details'),
-//         // Add contact details form fields here
-//       ],
-//     );
-//   }
-// }
-
-// class BankDetails extends StatelessWidget {
-//   const BankDetails({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return const Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text('Bank Details'),
-//         // Add bank details form fields here
-//       ],
-//     );
-//   }
-// }
